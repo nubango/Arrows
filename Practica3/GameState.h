@@ -16,7 +16,8 @@ private:
 	std::list<EventHandler*> eventHandlers_; // Manejadores de eventos
 	SDLApp* app_; // Puntero al juego
 
-	// Clase abstracta porque su constructora es privada
+protected:
+	// Clase abstracta porque no tiene constructora publica
 	GameState(SDLApp* app) : app_(app) {}
 
 public:

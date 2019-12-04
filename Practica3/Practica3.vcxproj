@@ -69,7 +69,6 @@
   <ItemGroup>
     <ClCompile Include="ArrowsGameObject.cpp" />
     <ClCompile Include="EndState.cpp" />
-    <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="GameStateMachine.cpp" />
     <ClCompile Include="main.cpp" />
@@ -86,6 +85,7 @@
     <ClInclude Include="ArrowsError.h" />
     <ClInclude Include="ArrowsGameObject.h" />
     <ClInclude Include="checkML.h" />
+    <ClInclude Include="consts.h" />
     <ClInclude Include="EndState.h" />
     <ClInclude Include="EventHandler.h" />
     <ClInclude Include="FileFormatError.h" />
