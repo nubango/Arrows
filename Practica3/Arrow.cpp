@@ -1,6 +1,7 @@
 #include "Arrow.h"
 
 #include "GameState.h"
+#include "PlayState.h"
 
 int Arrow::count = 0;
 
@@ -24,8 +25,7 @@ void Arrow::update()
 {
 	ArrowsGameObject::update();
 	if (pos_.getX() > WIN_WIDTH || pos_.getY() > WIN_HEIGHT || pos_.getY() < 0)
-		// game_->killArrow(lastIt_)
-		;
+		static_cast<PlayState*>(state_)->killArrow(lastIt_);
 }
 
 SDL_Rect Arrow::getCollisionRect() const

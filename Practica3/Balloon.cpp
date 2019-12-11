@@ -1,6 +1,7 @@
 #include "Balloon.h"
 
 #include "GameState.h"
+#include "PlayState.h"
 
 int Balloon::count = 0;
 
@@ -33,7 +34,7 @@ void Balloon::update()
 	if (!punctured_)
 	{
 		ArrowsGameObject::update();
-		/*if (game_->hitBalloon(this))
+		if (static_cast<PlayState*>(state_)->hitBalloon(this))
 		{
 			punctTime_ = SDL_GetTicks();
 			punctured_ = true;
@@ -42,9 +43,9 @@ void Balloon::update()
 		// Si se sale de la pantalla se elimina
 		else if (pos_.getY() < -height_)
 		{
-			game_->killBalloon(lastIt_);
+			static_cast<PlayState*>(state_)->killBalloon(lastIt_);
 			count--;
-		}*/
+		}
 	}
 	else
 		animate();
@@ -70,6 +71,6 @@ void Balloon::animate()
 
 	if (frame_ < cols && currentTime - punctTime_ > timeperframe* frame_)
 		frame_++;
-	/*else if (frame_ >= cols)
-		game_->killBalloon(lastIt_);*/
+	else if (frame_ >= cols)
+		static_cast<PlayState*>(state_)->killBalloon(lastIt_);
 }

@@ -1,6 +1,7 @@
 #include "Butterfly.h"
 
 #include "GameState.h"
+#include "PlayState.h"
 
 int Butterfly::count = 0;
 
@@ -97,7 +98,7 @@ void Butterfly::update()
 {
 	if (!dead_)
 	{
-		//dead_ = game_->hitButterfly(this);
+		dead_ = static_cast<PlayState*>(state_)->hitButterfly(this);
 		if (dead_)
 		{
 			deadAnimation();
@@ -107,8 +108,7 @@ void Butterfly::update()
 		animate();
 	}
 	else if (pos_.getY() > WIN_HEIGHT)
-		//game_->killButterfly(lastIt_);
-		;
+		static_cast<PlayState*>(state_)->killButterfly(lastIt_);
 
 	ArrowsGameObject::update();
 }

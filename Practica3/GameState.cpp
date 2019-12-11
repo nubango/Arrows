@@ -1,7 +1,5 @@
 #include "GameState.h"
 
-#include "ArrowsGameObject.h"
-
 #include "SDLApp.h"
 
 void GameState::addGameObject(SDLGameObject* a)

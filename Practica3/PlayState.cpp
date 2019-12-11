@@ -36,7 +36,7 @@ void PlayState::update()
 
 void PlayState::render() const
 {
-	app_->getTexture("BACKGROUND_" + currentLevel_)->render({ 0,0,WIN_WIDTH,WIN_HEIGHT });
+	app_->getTexture("BACKGROUND_" + std::to_string(currentLevel_))->render({ 0,0,WIN_WIDTH,WIN_HEIGHT });
 
 	GameState::render();
 
@@ -89,7 +89,7 @@ bool PlayState::hitBalloon(Balloon* balloon)
 		// Hay un 30 % de probabilidades de que salga un reward
 		if (rand() % 100 < 30)
 		{
-			Reward* r = new Reward({ (double)B.x,(double)B.y + B.h }, { 0,1 }, REWARD_WIDTH, REWARD_HEIGHT, REWARD_SPEED, 0, app_->getTexture("REWARD"), this, app_->getTexture("BUBBLE"));
+			Reward* r = new Reward({ (double)B.x,(double)B.y + B.h }, { 0,1 }, REWARD_WIDTH, REWARD_HEIGHT, REWARD_SPEED, 0, app_->getTexture("REWARDS"), this, app_->getTexture("BUBBLE"));
 			addRewardBubble(r);
 		}
 	}
@@ -374,7 +374,7 @@ void PlayState::generateBalloons()
 	{
 		double rndx = rand() % SPAWN_SPACE + SPAWN_LOWER_BOUND;
 
-		Balloon* b = new Balloon({ rndx,WIN_HEIGHT }, { 0,-1 }, BALLOON_WIDTH, BALLOON_HEIGHT, 0, 0, app_->getTexture("BALOON"), this);
+		Balloon* b = new Balloon({ rndx,WIN_HEIGHT }, { 0,-1 }, BALLOON_WIDTH, BALLOON_HEIGHT, 0, 0, app_->getTexture("BALLOON"), this);
 
 		addBalloon(b);
 

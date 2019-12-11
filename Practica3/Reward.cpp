@@ -1,6 +1,7 @@
 #include "Reward.h"
 
 #include "GameState.h"
+#include "PlayState.h"
 
 int Reward::count = 0;
 
@@ -40,16 +41,14 @@ void Reward::update()
 	ArrowsGameObject::update();
 	if (!punctured_)
 	{
-		//if (game_->hitBubble(this))
-		//	punctured_ = true;
-		;
+		if (static_cast<PlayState*>(state_)->hitBubble(this))
+			punctured_ = true;
 	}
 	else
 		animate();
 
 	if (pos_.getY() > WIN_HEIGHT || used_)
-		//game_->killReward(lastIt_, itHandler_);
-		;
+		static_cast<PlayState*>(state_)->killReward(lastIt_, itHandler_);
 }
 
 bool Reward::handleEvent(SDL_Event& event)
@@ -64,8 +63,8 @@ bool Reward::handleEvent(SDL_Event& event)
 
 		if (event.button.button == SDL_BUTTON_LEFT && SDL_PointInRect(&p, &getDestRect()))
 		{
-			//if (type_ == 0) game_->nextLevel();
-			//else if (type_ == 1) game_->addArrows();
+			if (type_ == 0) static_cast<PlayState*>(state_)->nextLevel();
+			else if (type_ == 1) static_cast<PlayState*>(state_)->addArrows(2);
 
 			used_ = true;
 			return true;

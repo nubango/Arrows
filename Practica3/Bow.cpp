@@ -60,12 +60,11 @@ bool Bow::handleEvent(SDL_Event& event)
 		}
 		else if (event.key.keysym.sym == SDLK_LEFT || event.key.keysym.sym == SDLK_a)
 		{
-			/*if (game_->getAvailableArrows() > 0)
+			if (static_cast<PlayState*>(state_)->getAvailableArrows() > 0)
 			{
 				drawTime_ = SDL_GetTicks();
 				loaded_ = true;
-			}*/
-			;
+			}
 		}
 		else if (event.key.keysym.sym == SDLK_RIGHT || event.key.keysym.sym == SDLK_d)
 		{
@@ -76,7 +75,7 @@ bool Bow::handleEvent(SDL_Event& event)
 				arrow_ = new Arrow(pos, { 1,0 },
 					ARROW_WIDTH, ARROW_HEIGHT, ARROW_SPEED * drawFactor, angle_, state_->getApp()->getTexture("ARROW"), state_);
 
-				//game_->createArrow(arrow_);
+				static_cast<PlayState*>(state_)->createArrow(arrow_);
 				loaded_ = false;
 			}
 		}
