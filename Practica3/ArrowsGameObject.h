@@ -13,7 +13,7 @@ class GameState;
 class ArrowsGameObject :
 	public SDLGameObject
 {
-private:
+protected:
 	Vector2D dir_;
 	double speed_;
 
@@ -21,7 +21,6 @@ private:
 
 	std::list<GameObject*>::iterator lastIt_;
 
-protected:
 	ArrowsGameObject() : SDLGameObject(), dir_({ 0,0 }), speed_(0), angle_(0) {}
 
 	ArrowsGameObject(Vector2D pos, int width, int height, Texture* texture, GameState* state, Vector2D dir, double speed, double angle) :

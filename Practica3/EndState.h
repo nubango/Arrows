@@ -15,7 +15,7 @@ private:
 
 public:
 	EndState() : GameState(), win_(false) {}
-	EndState(SDLApp* app);
+	EndState(SDLApp* app, bool end);
 	virtual ~EndState();
 
 	virtual void render() const;

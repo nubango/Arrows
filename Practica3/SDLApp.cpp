@@ -123,7 +123,7 @@ void SDLApp::loadPlayState(SDLApp* app)
 	int code;
 	std::cout << "Introduce tu codigo de carga: "; std::cin >> code;
 	stateMachine_->pushState(new PlayState(app));
-	// static_cast<PlayState*>(stateMachine_->currentState())->loadFromFile(code);
+	static_cast<PlayState*>(stateMachine_->currentState())->loadFromFile(code);
 }
 
 void SDLApp::savePlayState(SDLApp* app)
@@ -131,7 +131,7 @@ void SDLApp::savePlayState(SDLApp* app)
 	int code;
 	std::cout << "Introduce tu codigo de guardado: "; std::cin >> code;
 	stateMachine_->popState();
-	// static_cast<PlayState*>(stateMachine_->currentState())->saveToFile(code);
+	static_cast<PlayState*>(stateMachine_->currentState())->saveToFile(code);
 }
 
 void SDLApp::toPlay(SDLApp* app)
@@ -152,5 +152,6 @@ void SDLApp::toMenu(SDLApp* app)
 
 void SDLApp::toEnd(SDLApp* app)
 {
-	stateMachine_->pushState(new EndState(app));
+	bool end = static_cast<PlayState*>(stateMachine_->currentState())->hasWon();
+	stateMachine_->pushState(new EndState(app, end));
 }

@@ -2,8 +2,8 @@
 
 #include "SDLApp.h" 
 
-EndState::EndState(SDLApp* app) :
-	GameState(app), win_(false)
+EndState::EndState(SDLApp* app, bool end) :
+	GameState(app), win_(end)
 {
 	MenuButton* button = new MenuButton({ 400, 550 }, BUTTON_WIDTH, BUTTON_HEIGHT, app_->getTexture("MENU"), this, SDLApp::toMenu);
 	addEventHandler(button);
