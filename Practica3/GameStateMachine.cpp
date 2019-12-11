@@ -33,6 +33,7 @@ void GameStateMachine::popState()
 	if (!states_.empty())
 	{
 		delete states_.top();
+		states_.top() = nullptr;
 		states_.pop();
 	}
 }

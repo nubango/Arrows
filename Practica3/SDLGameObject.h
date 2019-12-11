@@ -5,30 +5,33 @@
 #include "GameObject.h"
 #include "Vector2D.h"
 #include "Texture.h"
-#include "SDLApp.h"
+
+class GameState;
 
 class SDLGameObject :
 	public GameObject
 {
-private:
+protected:
 	Vector2D pos_;
 	int width_;
 	int height_;
 
 	Texture* texture_;
-	SDLApp* app_;
+	GameState* state_;
+
+	SDLGameObject() :
+		GameObject(), pos_(0, 0), width_(0), height_(0), texture_(nullptr), state_(nullptr) {}
+
+	SDLGameObject(Vector2D pos, int width, int height, Texture* texture, GameState* state) :
+		GameObject(), pos_(pos), width_(width), height_(height), texture_(texture), state_(state) {}
 
 public:
-	SDLGameObject() : 
-		GameObject(), pos_(0, 0), width_(0), height_(0), texture_(nullptr), app_(nullptr) {}
-	SDLGameObject(Vector2D pos, int width, int height, Texture* texture, SDLApp* app) : 
-		GameObject(), pos_(pos), width_(width), height_(height), texture_(texture), app_(app) {}
 	~SDLGameObject() {}
 
 	SDL_Rect getDestRect() const { return { (int)pos_.getX(), (int)pos_.getY(), (int)width_, (int)height_ }; }
 
-	virtual void render() const;
-	virtual void update();
+	virtual void render() const = 0;
+	virtual void update() = 0;
 };
 
 #endif // !_SDLGAMEOBJECT_H_

@@ -10,8 +10,6 @@
 
 #include <string>
 
-using namespace std;
-
 class Texture {
 private:
 	SDL_Texture* texture = nullptr;
@@ -25,7 +23,7 @@ private:
 
 public:
 	Texture(SDL_Renderer* r) : renderer(r) {};
-	Texture(SDL_Renderer* r, string filename, int numRows = 1, int numCols = 1) : renderer(r) { load(filename, numRows, numCols); };
+	Texture(SDL_Renderer* r, std::string filename, int numRows = 1, int numCols = 1) : renderer(r) { load(filename, numRows, numCols); };
 	~Texture() { freeTexture(); };
 	void freeTexture();
 
@@ -35,7 +33,7 @@ public:
 	SDL_Texture* getTexture() const { return texture; };
 
 	// Carga la textura de un fichero
-	void load(string filename, int numRows = 1, int numCols = 1);
+	void load(std::string filename, int numRows = 1, int numCols = 1);
 	// Dibuja la textura en la posicion proporcionada en su totalidad
 	void render(const SDL_Rect& rect, SDL_RendererFlip flip = SDL_FLIP_NONE) const;
 	// Dibuja un frame de la textura en la posicion proporcionada

@@ -1,9 +1,36 @@
 #include "SDLApp.h"
 
-#include "GameState.h"
+GameStateMachine* SDLApp::stateMachine_ = nullptr;
+bool SDLApp::exit_ = false;
 
-SDLApp::SDLApp() :
-	exit_(false)
+void SDLApp::loadTextures()
+{
+	std::ifstream file;
+	file.open(TEXTURES_FILE_NAME);
+
+	if (!file.is_open())
+		throw FileNotFoundError("Couldn't open " + TEXTURES_FILE_NAME + ".txt\n");
+
+	int numTextures;
+	file >> numTextures;
+
+	for (int i = 0; i < numTextures; i++)
+	{
+		std::string name;
+		std::string path;
+		int row;
+		int col;
+		file >> name >> path >> row >> col;
+
+		// Se rellena el diccionario
+		textures_[name] = new Texture(renderer_);
+		textures_[name]->load(IMAGES_PATH + path, row, col);
+	}
+
+	file.close();
+}
+
+SDLApp::SDLApp()
 {
 	// Se inicializa SDL
 	int e = SDL_Init(SDL_INIT_EVERYTHING);
@@ -16,9 +43,11 @@ SDLApp::SDLApp() :
 	if (!renderer_) throw SDLError(SDL_GetError());
 
 	// Se crean las texturas
+	loadTextures();
 
 	// Se crea la maquina de estados
 	stateMachine_ = new GameStateMachine();
+	stateMachine_->pushState(new MainMenuState(this));
 }
 
 SDLApp::~SDLApp()
@@ -28,6 +57,12 @@ SDLApp::~SDLApp()
 	stateMachine_ = nullptr;
 
 	// Se borran las texturas
+	for (std::pair<std::string, Texture*> t : textures_)
+	{
+		delete t.second;
+		t.second = nullptr;
+	}
+	textures_.clear();
 
 	// Se borran atributos de SDL
 	SDL_DestroyRenderer(renderer_);
@@ -39,9 +74,12 @@ void SDLApp::run()
 {
 	while (!exit_)
 	{
+		int startTime = SDL_GetTicks();
 		handleEvents();
-		stateMachine_->currentState()->update();
+		update();
 		render();
+		int frameTime = SDL_GetTicks() - startTime;
+		if (frameTime < FRAME_RATE) SDL_Delay(FRAME_RATE - frameTime);
 	}
 }
 
@@ -50,6 +88,11 @@ void SDLApp::render() const
 	SDL_RenderClear(renderer_);
 	stateMachine_->currentState()->render();
 	SDL_RenderPresent(renderer_);
+}
+
+void SDLApp::update()
+{
+	stateMachine_->currentState()->update();
 }
 
 void SDLApp::handleEvents()
@@ -62,5 +105,49 @@ void SDLApp::handleEvents()
 		{
 			exit_ = true;
 		}
+	}
+}
+
+void SDLApp::quitApp(SDLApp* app)
+{
+	exit_ = true;
+}
+
+void SDLApp::resumeApp(SDLApp* app)
+{
+	stateMachine_->popState();
+}
+
+void SDLApp::loadPlayState(SDLApp* app)
+{
+	int code;
+	std::cout << "Introduce tu codigo de carga: "; std::cin >> code;
+	// stateMachine_->pushState(new PlayState(this));
+	// static_cast<PlayState*>(stateMachine_->currentState())->loadFromFile(code);
+}
+
+void SDLApp::savePlayState(SDLApp* app)
+{
+	int code;
+	std::cout << "Introduce tu codigo de guardado: "; std::cin >> code;
+	// stateMachine_->popState();
+	// static_cast<PlayState*>(stateMachine_->currentState())->saveToFile(code);
+}
+
+void SDLApp::toPlay(SDLApp* app)
+{
+	// stateMachine_->pushState(new PlayState(this));
+}
+
+void SDLApp::toPause(SDLApp* app)
+{
+	// stateMachine_->pushState(new PauseState(this));
+}
+
+void SDLApp::toMenu(SDLApp* app)
+{
+	while (stateMachine_->currentState()->getStateName() != "MainMenu")
+	{
+		stateMachine_->popState();
 	}
 }

@@ -2,10 +2,9 @@
 #define _GAMESTATEMACHINE_H_
 
 #include "checkML.h"
+#include "GameState.h"
 
 #include <stack>
-
-class GameState; // Inclusion Circular
 
 class GameStateMachine
 {

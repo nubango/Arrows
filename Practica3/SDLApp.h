@@ -2,11 +2,17 @@
 #define _SDLAPP_H_
 
 #include "checkML.h"
-#include "consts.h"
-#include "SDL_image.h"
-#include "SDL.h"
 #include "SDLError.h"
 #include "GameStateMachine.h"
+#include "FileNotFoundError.h"
+
+#include "MainMenuState.h"
+#include "PlayState.h"
+#include "PauseState.h"
+#include "EndState.h"
+
+#include <fstream>
+#include <map>
 
 class SDLApp
 {
@@ -14,9 +20,14 @@ private:
 	SDL_Window* window_;
 	SDL_Renderer* renderer_;
 
-	GameStateMachine* stateMachine_;
+	static GameStateMachine* stateMachine_;
 
-	bool exit_;
+	static bool exit_;
+
+	std::map<std::string, Texture*> textures_;
+
+	// AUX: lee las texturas del archivo textures.txt
+	void loadTextures();
 
 public:
 	SDLApp();
@@ -24,7 +35,20 @@ public:
 
 	void run();
 	void render() const;
+	void update();
 	void handleEvents();
+
+	Texture* getTexture(std::string s) { return textures_.at(s); };
+
+	static void quitApp(SDLApp* app);
+	static void resumeApp(SDLApp* app);
+	static void loadPlayState(SDLApp* app);
+	static void savePlayState(SDLApp* app);
+	static void toPlay(SDLApp* app);
+	static void toPause(SDLApp* app);
+	static void toMenu(SDLApp* app);
+
+
 };
 
 #endif // !_SDLAPP_H_

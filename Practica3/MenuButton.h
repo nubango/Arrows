@@ -5,23 +5,28 @@
 #include "SDLGameObject.h"
 #include "EventHandler.h"
 #include "SDLApp.h"
-#include "Texture.h"
 
 using CallBackOnClick = void(SDLApp * app);
 
 class MenuButton :
 	public SDLGameObject, public EventHandler
 {
+private:
+	enum ButtonState { MouseOut, MouseOver, MouseClick };
+
 protected:
-	SDLApp* app_;
-	Texture* texture_;
-	int x_, y_;
-	int w_, h_;
 	CallBackOnClick* cbOnClick_;
 
-public:
-	bool handleEvent(SDL_Event& e);
+	ButtonState currentState_;
 
+public:
+	MenuButton();
+	MenuButton(Vector2D pos, int width, int height, Texture* texture, GameState* state, CallBackOnClick* cb);
+	virtual ~MenuButton();
+
+	virtual void render() const;
+	virtual void update();
+	virtual bool handleEvent(SDL_Event& e);
 };
 
 #endif // !_MENUBUTTON_H_
