@@ -19,7 +19,7 @@ public:
 	virtual void update();
 	virtual void handleEvent(SDL_Event& e);
 
-	virtual std::string getStateName() { return "MainMenu"; }
+	virtual StateName getStateName() { return StateName::MENU_STATE; }
 };
 
 #endif // !_MAINMENUSTATE_H_

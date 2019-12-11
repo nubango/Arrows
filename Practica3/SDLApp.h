@@ -40,6 +40,7 @@ public:
 
 	Texture* getTexture(std::string s) { return textures_.at(s); };
 
+	// Metodos estaticos para los callbacks
 	static void quitApp(SDLApp* app);
 	static void resumeApp(SDLApp* app);
 	static void loadPlayState(SDLApp* app);
@@ -47,8 +48,7 @@ public:
 	static void toPlay(SDLApp* app);
 	static void toPause(SDLApp* app);
 	static void toMenu(SDLApp* app);
-
-
+	static void toEnd(SDLApp* app);
 };
 
 #endif // !_SDLAPP_H_

@@ -1,5 +1,7 @@
 #include "PlayState.h"
 
+#include "SDLApp.h"
+
 void PlayState::update()
 {
 	/*
@@ -25,6 +27,13 @@ void PlayState::update()
 		}
 	}
 	*/
+
+	GameState::update();
+}
+
+void PlayState::render() const
+{
+	GameState::render();
 }
 
 void PlayState::handleEvent(SDL_Event& e)
@@ -34,4 +43,13 @@ void PlayState::handleEvent(SDL_Event& e)
 		app->getStateMachine()->pushState(new PauseState(game));
 	else GameState::handleEvent(e);
 	*/
+	if (e.type == SDL_KEYDOWN)
+	{
+		if (e.key.keysym.sym == SDLK_ESCAPE)
+			SDLApp::toPause(app_);
+		else if (e.key.keysym.sym == SDLK_n)
+			SDLApp::toEnd(app_);
+	}
+
+	GameState::handleEvent(e);
 }

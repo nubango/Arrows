@@ -8,6 +8,9 @@
 
 #include <list>
 
+// Enum para getStateName
+enum StateName { MENU_STATE, PLAY_STATE, PAUSE_STATE, END_STATE };
+
 class SDLApp;
 
 // Es la clase raiz de estados del juego
@@ -18,7 +21,7 @@ protected:
 	std::list<EventHandler*> eventHandlers_; // Manejadores de eventos
 	SDLApp* app_; // Puntero al juego
 
-	GameState(): app_(nullptr) {}
+	GameState() : app_(nullptr) {}
 	// Clase abstracta porque no tiene constructora publica
 	GameState(SDLApp* app) : app_(app) {}
 
@@ -34,7 +37,7 @@ public:
 	virtual void render() const;
 	virtual void handleEvent(SDL_Event& e);
 
-	virtual std::string getStateName() = 0;
+	virtual StateName getStateName() = 0;
 	SDLApp* getApp() { return app_; }
 };
 
