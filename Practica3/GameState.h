@@ -9,7 +9,7 @@
 #include <list>
 
 // Enum para getStateName
-enum StateName { MENU_STATE, PLAY_STATE, PAUSE_STATE, END_STATE };
+enum class StateName { MENU_STATE, PLAY_STATE, PAUSE_STATE, END_STATE };
 
 class SDLApp;
 

@@ -15,7 +15,7 @@ Balloon::Balloon(Vector2D pos, Vector2D dir, int width, int height, double speed
 {
 	color_ = rand() % 7;
 
-	speed_ = VEL_BALLOONS_MIN + (rand()) / (RAND_MAX / (VEL_BALLOONS_MAX - VEL_BALLOONS_MIN));
+	speed_ = VEL_BALLOONS_MIN + (rand()) / (RAND_MAX / (double)(VEL_BALLOONS_MAX - VEL_BALLOONS_MIN));
 
 	count++;
 }
@@ -66,7 +66,7 @@ void Balloon::saveToFile(std::ofstream& file)
 void Balloon::animate()
 {
 	int cols = texture_->getNumCols();
-	int timeperframe = BALLOON_ANIMATION_TIME / cols;
+	unsigned int timeperframe = BALLOON_ANIMATION_TIME / cols;
 	int currentTime = SDL_GetTicks();
 
 	if (frame_ < cols && currentTime - punctTime_ > timeperframe* frame_)

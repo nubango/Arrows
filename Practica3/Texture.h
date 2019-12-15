@@ -3,12 +3,7 @@
 #ifndef __TEXTURE_H__
 #define __TEXTURE_H__
 
-#include "SDL.h" // Windows
-#include "SDL_image.h" // Windows
-#include "checkML.h"
-#include "SDLError.h"
-
-#include <string>
+#include "Font.h"
 
 class Texture {
 private:
@@ -34,6 +29,8 @@ public:
 
 	// Carga la textura de un fichero
 	void load(std::string filename, int numRows = 1, int numCols = 1);
+	// Carga la textura de la fuente de texto
+	void loadFont(SDL_Renderer* renderer, std::string text, const Font& font, SDL_Color color);
 	// Dibuja la textura en la posicion proporcionada en su totalidad
 	void render(const SDL_Rect& rect, SDL_RendererFlip flip = SDL_FLIP_NONE) const;
 	// Dibuja un frame de la textura en la posicion proporcionada

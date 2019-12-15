@@ -50,7 +50,7 @@ private:
 	void addRewardBubble(Reward* r);
 
 public:
-	PlayState() : GameState(), bow_(nullptr), lastSpawnTime_(0), currentLevel_(0), changeLevel_(false), win_(false) {}
+	PlayState() : GameState(), bow_(nullptr), scoreBoard_(nullptr), lastSpawnTime_(0), currentLevel_(0), changeLevel_(false), win_(false) {}
 	PlayState(SDLApp* app);
 	virtual ~PlayState();
 

@@ -51,12 +51,12 @@ bool Bow::handleEvent(SDL_Event& event)
 		else if (event.key.keysym.sym == SDLK_e)
 		{
 			if (angle_ < ANGLE_LIMIT)
-				angle_ += speed_;
+				angle_ += (int)speed_;
 		}
 		else if (event.key.keysym.sym == SDLK_q)
 		{
 			if (angle_ > -ANGLE_LIMIT)
-				angle_ -= speed_;
+				angle_ -= (int)speed_;
 		}
 		else if (event.key.keysym.sym == SDLK_LEFT || event.key.keysym.sym == SDLK_a)
 		{

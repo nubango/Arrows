@@ -3,7 +3,7 @@
 #include "SDLApp.h"
 
 PlayState::PlayState(SDLApp* app) :
-	GameState(app), bow_(nullptr), lastSpawnTime_(0), currentLevel_(0), changeLevel_(false), win_(false)
+	GameState(app), bow_(nullptr), scoreBoard_(nullptr), lastSpawnTime_(0), currentLevel_(0), changeLevel_(false), win_(false)
 {
 	srand(static_cast<unsigned int>(time(NULL)));
 

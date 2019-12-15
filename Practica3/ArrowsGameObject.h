@@ -23,7 +23,7 @@ protected:
 
 	ArrowsGameObject() : SDLGameObject(), dir_({ 0,0 }), speed_(0), angle_(0) {}
 
-	ArrowsGameObject(Vector2D pos, int width, int height, Texture* texture, GameState* state, Vector2D dir, double speed, double angle) :
+	ArrowsGameObject(Vector2D pos, int width, int height, Texture* texture, GameState* state, Vector2D dir, double speed, int angle) :
 		SDLGameObject(pos, width, height, texture, state), dir_(dir), speed_(speed), angle_(angle) {}
 
 public:

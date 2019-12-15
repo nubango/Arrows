@@ -26,7 +26,7 @@ private:
 
 	std::map<std::string, Texture*> textures_;
 
-	// AUX: lee las texturas del archivo textures.txt
+	// Lee las texturas del archivo textures.txt
 	void loadTextures();
 
 public:
