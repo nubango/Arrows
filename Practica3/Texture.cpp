@@ -28,18 +28,18 @@ void Texture::load(string filename, int nRows, int nCols) {
 	SDL_FreeSurface(tempSurface);
 }
 
-void Texture::loadFont(SDL_Renderer* renderer, std::string text, const Font& font, SDL_Color color)
+void Texture::loadFont(std::string text, Font* font, SDL_Color color)
 {
-	SDL_Surface* textSurface = font.generateSurface(text, color);
-	if (textSurface == nullptr)
-		;// throw exception("Unable to render text surface: " + TTF_GetError());
+	SDL_Surface* textSurface = font->generateSurface(text, color);
+	if (!textSurface)
+		throw SDLError("Unable to render text surface.\n");
 	else 
 	{
 		freeTexture();
 		texture = SDL_CreateTextureFromSurface(renderer, textSurface);
-		if (texture == nullptr) 
+		if (!texture) 
 		{
-			// throw exception("Unable to create texture from text: " + SDL_GetError());
+			throw SDLError("Unable to create texture.\n");
 			w = h = 0;
 		}
 		else 

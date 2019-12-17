@@ -76,6 +76,7 @@
     <ClCompile Include="Font.cpp" />
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="GameStateMachine.cpp" />
+    <ClCompile Include="LeaderBoard.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainMenuState.cpp" />
     <ClCompile Include="MenuButton.cpp" />
@@ -104,6 +105,7 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="GameStateMachine.h" />
+    <ClInclude Include="LeaderBoard.h" />
     <ClInclude Include="MainMenuState.h" />
     <ClInclude Include="MenuButton.h" />
     <ClInclude Include="PauseState.h" />

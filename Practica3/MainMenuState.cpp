@@ -26,6 +26,16 @@ void MainMenuState::render() const
 {
 	app_->getTexture("BACKGROUND_AUTUMN")->render({ 0,0,WIN_WIDTH,WIN_HEIGHT });
 	app_->getTexture("LOGO")->render({ LOGO_POS_X, LOGO_POS_Y, LOGO_WIDTH, LOGO_HEIGHT });
+
+	Texture* t = new Texture(app_->getRenderer());
+	t->loadFont("by Nuria Bango", app_->getFont("PAINT22"), { 0, 0, 0, 255 });
+	int w, h;
+	app_->getFont("PAINT22")->getSizeOfText("by Nuria Bango", w, h);
+	t->render({ WIN_WIDTH - w - 20, WIN_HEIGHT - h - 10, w, h });
+
+	delete t;
+	t = nullptr;
+
 	GameState::render();
 }
 

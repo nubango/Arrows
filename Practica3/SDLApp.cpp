@@ -30,6 +30,32 @@ void SDLApp::loadTextures()
 	file.close();
 }
 
+void SDLApp::loadFonts()
+{
+	std::ifstream file;
+	file.open(FONTS_FILE_NAME);
+
+	if (!file.is_open())
+		throw FileNotFoundError("Couldn't open " + FONTS_FILE_NAME + ".txt\n");
+
+	int numFonts;
+	file >> numFonts;
+
+	for (int i = 0; i < numFonts; i++)
+	{
+		std::string name;
+		std::string path;
+		int size;
+		file >> name >> path >> size;
+
+		// Se rellena el diccionario
+		fonts_[name] = new Font();
+		fonts_[name]->load(FONTS_PATH + path, size);
+	}
+
+	file.close();
+}
+
 SDLApp::SDLApp()
 {
 	// Se inicializa SDL
@@ -42,8 +68,12 @@ SDLApp::SDLApp()
 	renderer_ = SDL_CreateRenderer(window_, -1, SDL_RENDERER_ACCELERATED);
 	if (!renderer_) throw SDLError(SDL_GetError());
 
+	// Se inicializa TTF
+	TTF_Init();
+
 	// Se crean las texturas
 	loadTextures();
+	loadFonts();
 
 	// Se crea la maquina de estados
 	stateMachine_ = new GameStateMachine();
@@ -63,6 +93,16 @@ SDLApp::~SDLApp()
 		t.second = nullptr;
 	}
 	textures_.clear();
+
+	// Se borran las fuentes
+	for (std::pair<std::string, Font*> f : fonts_)
+	{
+		delete f.second;
+		f.second = nullptr;
+	}
+	fonts_.clear();
+
+	TTF_Quit();
 
 	// Se borran atributos de SDL
 	SDL_DestroyRenderer(renderer_);
@@ -120,10 +160,16 @@ void SDLApp::resumeApp(SDLApp* app)
 
 void SDLApp::loadPlayState(SDLApp* app)
 {
-	int code;
-	std::cout << "Introduce tu codigo de carga: "; std::cin >> code;
-	stateMachine_->pushState(new PlayState(app));
-	static_cast<PlayState*>(stateMachine_->currentState())->loadFromFile(code);
+	try {
+		int code;
+		std::cout << "Introduce tu codigo de carga: "; std::cin >> code;
+		stateMachine_->pushState(new PlayState(app));
+		static_cast<PlayState*>(stateMachine_->currentState())->loadFromFile(code);
+	}
+	catch (FileNotFoundError e)
+	{
+		toPlay(app);
+	}
 }
 
 void SDLApp::savePlayState(SDLApp* app)
@@ -153,5 +199,7 @@ void SDLApp::toMenu(SDLApp* app)
 void SDLApp::toEnd(SDLApp* app)
 {
 	bool end = static_cast<PlayState*>(stateMachine_->currentState())->hasWon();
-	stateMachine_->pushState(new EndState(app, end));
+	int score = static_cast<PlayState*>(stateMachine_->currentState())->getScore();
+
+	stateMachine_->pushState(new EndState(app, end, score));
 }

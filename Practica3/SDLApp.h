@@ -25,9 +25,12 @@ private:
 	static bool exit_;
 
 	std::map<std::string, Texture*> textures_;
+	std::map<std::string, Font*> fonts_;
 
 	// Lee las texturas del archivo textures.txt
 	void loadTextures();
+	// Lee las fuentes del archivo fonts.txt
+	void loadFonts();
 
 public:
 	SDLApp();
@@ -39,6 +42,8 @@ public:
 	void handleEvents();
 
 	Texture* getTexture(std::string s) { return textures_.at(s); };
+	Font* getFont(std::string s) { return fonts_.at(s); };
+	SDL_Renderer* getRenderer() { return renderer_; }
 
 	// Metodos estaticos para los callbacks
 	static void quitApp(SDLApp* app);

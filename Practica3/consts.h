@@ -11,6 +11,10 @@ const int WIN_HEIGHT = 720;
 const std::string IMAGES_PATH = "..\\images\\";
 const std::string TEXTURES_FILE_NAME = "textures.txt";
 
+//-----------------FONTS-----------------
+const std::string FONTS_PATH = "..\\fonts\\";
+const std::string FONTS_FILE_NAME = "fonts.txt";
+
 //-----------------UPDATE-----------------
 const int FRAME_RATE = 60;
 
@@ -70,7 +74,12 @@ const int SPAWN_TIME = 800;
 const int POINTS_PER_LEVEL = 100;
 const int NUM_LEVELS = 4;
 const int BUTTERFLIES_PER_LEVEL = 5;
-const int POINTS_PER_BALLOON = 2;
+const int POINTS_PER_BALLOON = 5;
 
+//-----------------UI-----------------
+const int UI_SCORE_POS_X = 100;
+const int UI_SCORE_POS_Y = 40;
+const int UI_ARROWS_WIDTH = 15;
+const int UI_ARROWS_HEIGHT = 60;
 
 #endif // !CONSTS_H_

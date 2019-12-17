@@ -30,7 +30,7 @@ public:
 	// Carga la textura de un fichero
 	void load(std::string filename, int numRows = 1, int numCols = 1);
 	// Carga la textura de la fuente de texto
-	void loadFont(SDL_Renderer* renderer, std::string text, const Font& font, SDL_Color color);
+	void loadFont(std::string text, Font* font, SDL_Color color);
 	// Dibuja la textura en la posicion proporcionada en su totalidad
 	void render(const SDL_Rect& rect, SDL_RendererFlip flip = SDL_FLIP_NONE) const;
 	// Dibuja un frame de la textura en la posicion proporcionada

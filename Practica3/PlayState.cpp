@@ -83,7 +83,6 @@ bool PlayState::hitBalloon(Balloon* balloon)
 		(*it)->addHit();
 		int score = scoreBoard_->getScore();
 		score += ((*it)->getNumHits() - 1) * ((*it)->getNumHits() - 1) * POINTS_PER_BALLOON;
-		if (score > 999) score = 999;
 		scoreBoard_->setScore(score);
 
 		// Hay un 30 % de probabilidades de que salga un reward
@@ -279,7 +278,7 @@ void PlayState::loadFromFile(int code)
 	file >> count;
 	for (int i = 0; i < count; i++)
 	{
-		Reward* r = new Reward({ 0, 0 }, { 0,0 }, REWARD_WIDTH, REWARD_HEIGHT, 0, 0, app_->getTexture("REWARD"), this, app_->getTexture("BUBBLE"));
+		Reward* r = new Reward({ 0, 0 }, { 0,0 }, REWARD_WIDTH, REWARD_HEIGHT, 0, 0, app_->getTexture("REWARDS"), this, app_->getTexture("BUBBLE"));
 		r->loadFromFile(file);
 		addRewardBubble(r);
 	}

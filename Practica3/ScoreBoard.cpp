@@ -20,16 +20,20 @@ void ScoreBoard::render() const
 {
 	// HUD: flechas
 	for (int i = 0; i < numArrows_; i++)
-		app_->getTexture("ARROW_UI")->render({ (WIN_WIDTH / 4) + (15 * i), 10, 15, 60 });
+		app_->getTexture("ARROW_UI")->render({ (WIN_WIDTH / 4) + (UI_ARROWS_WIDTH * i), UI_SCORE_POS_Y, UI_ARROWS_WIDTH, UI_ARROWS_HEIGHT });
 
 	// HUD: puntuacion
-	unsigned int centenas = score_ / 100;
-	unsigned int decenas = (score_ % 100) / 10;
-	unsigned int unidades = (score_ % 10);
+	Texture* t = new Texture(app_->getRenderer());
+	
 
-	app_->getTexture("DIGITS")->renderFrame({ (WIN_WIDTH / 4) - 100, 15, 30, 45 }, 0, centenas);
-	app_->getTexture("DIGITS")->renderFrame({ (WIN_WIDTH / 4) - 70, 15, 30, 45 }, 0, decenas);
-	app_->getTexture("DIGITS")->renderFrame({ (WIN_WIDTH / 4) - 40, 15, 30, 45 }, 0, unidades);
+
+	t->loadFont(std::to_string(score_), app_->getFont("PAINT72"), { 255, 255, 255, 255 });
+	int w, h;
+	app_->getFont("PAINT72")->getSizeOfText(std::to_string(score_), w, h);
+	t->render({ UI_SCORE_POS_X, UI_SCORE_POS_Y, w, h });
+
+	delete t;
+	t = nullptr;
 }
 
 void ScoreBoard::update()

@@ -93,6 +93,9 @@
     <ClCompile Include="Font.cpp">
       <Filter>Archivos de código fuente\Utils</Filter>
     </ClCompile>
+    <ClCompile Include="LeaderBoard.cpp">
+      <Filter>Archivos de código fuente</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="checkML.h">
@@ -175,6 +178,9 @@
     </ClInclude>
     <ClInclude Include="Font.h">
       <Filter>Archivos de encabezado\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="LeaderBoard.h">
+      <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

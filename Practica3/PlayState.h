@@ -91,7 +91,7 @@ public:
 	void loadFromFile(int code);
 
 	int getAvailableArrows() { return scoreBoard_->getNumArrows(); }
-	int getScore() { scoreBoard_->getScore(); }
+	int getScore() { return scoreBoard_->getScore(); }
 	bool hasWon() { return win_; }
 };
 
